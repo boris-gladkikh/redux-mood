@@ -1,5 +1,5 @@
 
-let defaultState = {face:"ㅇㅅㅇ" };
+let defaultState = "ㅇㅅㅇ";
 
 
 // function faceChangerReducer(state = {face: "ㅇㅅㅇ"}, action){
@@ -7,13 +7,14 @@ function faceChangerReducer(state = defaultState, action){
 
   switch(action.type){
     case "HAPPY":
-      return  {...state, face: action.payload}
+      return action.payload
     case "SAD":
-      return {...state, face: action.payload}
+      return action.payload
     case "ANGRY":
-      return {...state, face: action.payload}
+      return action.payload
     case "CONFUSED":
-      return {...state, face: action.payload}
+      return action.payload
+
     default:
       return  state;
   }
@@ -25,6 +26,7 @@ const store = Redux.createStore(faceChangerReducer)
 
 
 window.onload = function(){
+  // console.log("this is store getstate", store.getState())
   const $angryButton =  $('#angry');
   const $happyButton = $('#happy');
   const $sadButton = $('#sad');
@@ -35,9 +37,10 @@ window.onload = function(){
 
   $angryButton.on('click', function(){
     store.dispatch({type:"ANGRY", payload:"ಠ▃ಠ"});
-    let  currentState = store.getState().face;
-    console.log("this is current state", currentState);
-    $stateDiv.html(currentState.face);   //<-----coming back as [object object] even though it console logs 
+    let  currentState = store.getState()
+    // console.log("this is current state", currentState.face);
+    // console.log("this is typeof current state", typeof currentState.face);
+    $stateDiv.text(currentState);
   });
   
   $happyButton.on('click', function(){
